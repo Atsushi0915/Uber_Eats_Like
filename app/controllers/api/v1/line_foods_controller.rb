@@ -1,10 +1,10 @@
 module Api
   module V1
     class LineFoodsController < ApplicationController
-      before_action :set_food, only: %i[create]
+      before_action :set_food, only: %i[create replace]
 
       def index
-        line_foods = LineFood.active
+        line_foods = LineFood.active  # models/line_food.rb の scope :active
         if line_foods.exists?
           render json: {
             line_food_ids: line_foods.map { |line_food| line_food.id },
@@ -28,6 +28,22 @@ module Api
         # active  other_restaurant は line_food で設定したscope
         # exists はレコードがデータベースに存在するかを true、false で返す。
         # status: :not_acceptable => HTTPレスポンスステータスコードは406 Not Acceptable
+
+        set_line_food(@orderd_food)
+
+        if @line_food.save
+          render json: {
+            line_food: @line_food
+          }, status: :created
+        else
+          render json: {}, status: :internal_server_error
+        end
+      end
+
+      def replace
+        LineFood.active.other_restaurant(@orderd_food.restaurant.id).each do |line_food|
+          lien_food.update_attribute(:active, false)
+        end
 
         set_line_food(@orderd_food)
 
