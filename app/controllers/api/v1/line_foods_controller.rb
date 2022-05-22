@@ -42,7 +42,7 @@ module Api
 
       def replace
         LineFood.active.other_restaurant(@orderd_food.restaurant.id).each do |line_food|
-          lien_food.update_attribute(:active, false)
+          lien_food.update_attribute(:active, false)  # line_food.active を false にするという意味。
         end
 
         set_line_food(@orderd_food)
