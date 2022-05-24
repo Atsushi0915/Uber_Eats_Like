@@ -101,7 +101,6 @@ export const Restaurants = () => {
       <MainCoverImageWrapper>
         <MainCover src={MainCoverImage} alt="main cover" />
       </MainCoverImageWrapper>
-      // --- ここから追加 ---
       <RestaurantsContentsList>
         {
           state.fetchState === REQUEST_STATE.LOADING ?
@@ -122,7 +121,6 @@ export const Restaurants = () => {
             )
         }
       </RestaurantsContentsList>
-      // --- ここまで追加 ---
     </Fragment>
   )
 }

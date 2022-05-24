@@ -1,10 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+
+import { fetchFoods } from '../apis/foods';  //apis
 
 export const Foods = ({ match }) => {
+  useEffect(() => {
+    fetchFoods(match.params.restaurantsId)
+      .then((data) =>
+        console.log(data))
+  }, [])
+
   return (
     <Fragment>
       フード一覧
-      <p>resraurantsIdは {match.params.restaurantsId} です。</p>
     </Fragment>
   )
 }
